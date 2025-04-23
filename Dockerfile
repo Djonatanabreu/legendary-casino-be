@@ -16,6 +16,7 @@ COPY . .
 
 RUN yarn prisma:generate
 RUN yarn prisma:migrate
+RUN yarn prisma:seed
 
 RUN yarn build
 
