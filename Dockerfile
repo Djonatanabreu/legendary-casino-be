@@ -14,8 +14,8 @@ RUN yarn install
 # Copy source files
 COPY . .
 
-RUN yarn prisma:generate
-RUN yarn prisma:migrate
+RUN yarn prisma generate
+RUN yarn prisma migrate
 
 RUN yarn build
 
