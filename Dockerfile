@@ -1,7 +1,7 @@
 FROM node:18-alpine
 
 # Install Yarn globally
-RUN npm install -g yarn
+RUN npm i -g yarn
 
 WORKDIR /app
 
