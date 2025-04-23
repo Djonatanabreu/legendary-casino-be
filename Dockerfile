@@ -10,9 +10,10 @@ COPY yarn.lock ./
 COPY prisma ./prisma/
 
 # Install dependencies using Yarn
-RUN yarn install --frozen-lockfile
 
 COPY . .
+
+run yarn
 
 RUN yarn build
 RUN yarn prisma:generate
