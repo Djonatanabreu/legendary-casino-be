@@ -1,17 +1,22 @@
 FROM node:18-alpine
 
+# Install Yarn globally
+RUN npm install -g yarn
+
 WORKDIR /app
 
 COPY package*.json ./
+COPY yarn.lock ./
 COPY prisma ./prisma/
 
-RUN npm install
+# Install dependencies using Yarn
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
-RUN npm run prisma:generate
+RUN yarn build
+RUN yarn prisma:generate
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
