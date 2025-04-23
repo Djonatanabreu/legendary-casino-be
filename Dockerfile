@@ -1,23 +1,23 @@
 FROM node:18-alpine
 
-# Install Yarn globally
-RUN npm i -g yarn
-
 WORKDIR /app
 
 COPY package*.json ./
 COPY yarn.lock ./
-COPY prisma ./prisma/
 
-# Install dependencies using Yarn
+RUN apk add --no-cache openssl python3 make g++
+ENV PRISMA_CLI_BINARY_TARGET=linux-musl-openssl-3.0.x
 
+# Install dependencies
+RUN yarn install
+
+# Copy source files
 COPY . .
 
-run yarn
+RUN yarn prisma:migrate
 
 RUN yarn build
-RUN yarn prisma:generate
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["node", "./dist/src/app.js"]
